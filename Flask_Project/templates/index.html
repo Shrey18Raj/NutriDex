@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="static/logo.jpeg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.0.1/remixicon.min.css" integrity="sha512-dTsohxprpcruDm4sjU92K0/Gf1nTKVVskNHLOGMqxmokBSkfOAyCzYSB6+5Z9UlDafFRpy5xLhvpkOImeFbX6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="static/style.css">
+    <title>NutriDex</title>
+</head>
+<body>
+    <div class="scroll-container">
+        <main>
+            <nav id="nav">
+                <a href="#sec1" class="logo"><img src="static/logo.jpeg" alt="logo"></a>
+                <a href="#sec2" >SCAN</a>
+                <a href="{{ url_for('calorie_log') }}" class="navbar">CALORIE LOG</a>
+                <a href="{{ url_for('unlocked') }}">UNLOCKED</a>
+                <a href="http://localhost:8501" class="menu curve-btn">DIET PLAN <span><i class="ri-book-open-line"></i></span></a>
+            </nav>
+            <section id="sec1">
+                <div class="text">
+                    <h1>NutriDex</h1>
+                    <p>Discover the ultimate food companion with NutriDex, your go-to platform for 
+                        food identification and calorie tracking. Whether you're looking to maintain
+                        a healthy diet, achieve your fitness goals, or simply explore the 
+                        nutritional value of your favorite foods, NutriDex has you covered.</p>
+                </div>
+                <div class="loading">
+                    <img src="static/pizza.png" alt="slice">
+                    <img src="static/healthy-food.png" alt="slice">
+                    <img src="static/fried-chicken.png" alt="slice">
+                    <img src="static/donut.png" alt="slice">
+                </div>
+                <div class="cover-img">
+                    <div class="layers">
+                        <div class="layer layer-4">
+                            <img src="static/layer-4.png" alt="">
+                        </div>
+                        <div class="layer layer-3">
+                            <img src="static/layer-3.png" alt="">
+                        </div>
+                        <div class="layer layer-2">
+                            <img src="static/layer-2.png" alt="">
+                        </div>
+                        <div class="layer layer-1">
+                            <img src="static/layer-1.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="nutrition">
+                    <div class="calories">
+                        Calories <br>
+                        <small>cal</small> <br>
+                        <span>452</span>
+                    </div>
+                    <div class="calories">
+                        Fat <br>
+                        <small>g</small> <br>
+                        <span>93</span>
+                    </div>
+                    <div class="calories">
+                        Protein <br>
+                        <small>g</small> <br>
+                        <span>85</span>
+                    </div>
+                </div>
+            </section>
+            <section id="sec2">
+                <div class="text">
+                    <h3>Features we're proud of!</h3>
+                    <div class="card-cont">
+                        <div id="card-1">
+                            <h3>Instant Food Identification</h3>
+                            <p>Quickly identify a wide variety of foods with our advanced image recognition</p>
+                        </div>
+                        <div id="card-2">
+                            <h3>Comprehensive Calorie Tracker</h3>
+                            <p>Keep track of your daily calorie intake and monitor your progress</p>
+                        </div>
+                        <div id="card-3">
+                            <h3>Personalized Insights</h3>
+                            <p>Get detailed nutritional information and personalized dietary recommendations</p>
+                        </div>
+                        <div id="card-4">
+                            <h3>Unlocked Foods Page</h3>
+                            <p>See a list of all the food items you've unlocked</p>
+                        </div>
+                    </div>
+                    <div class="banner">
+                        <div class="slider-wrapper">
+                            <div class="slider" style="--quantity:5">
+                                <div class="item" style="--position:1">
+                                    <img id="slide-1" src="static/car-1.jpeg" alt="item-1">
+                                </div>
+                                <div class="item" style="--position:2">
+                                    <img id="slide-2" src="static/car-2.jpeg" alt="item-2">
+                                </div>
+                                <div class="item" style="--position:3">
+                                    <img id="slide-3" src="static/car-3.jpeg" alt="item-3">
+                                </div>
+                                <div class="item" style="--position:4">
+                                    <img id="slide-4" src="static/car-4.jpeg" alt="item-4">
+                                </div>
+                                <div class="item" style="--position:5">
+                                    <img id="slide-5" src="static/car-5.jpeg" alt="item-5">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-img">
+                    <form id="uploadForm" onsubmit="return storeFormDataAndRedirect()" enctype="multipart/form-data">
+                        <div class="upload-section">
+                            <label for="imageUpload" class="custom-file-upload">
+                                <i class="ri-image-circle-line"></i> Select an Image
+                            </label>
+                            <input type="file" id="imageUpload" name="imageUpload" accept="image/*" required>
+                            <label for="weightFood" class="custom-weight-label">
+                                Enter weight of food (in grams) <span>[optional]</span>
+                            </label>
+                            <input type="number" id="weightFood" name="weightFood" class="custom-weight-input">
+                            
+                            <input class="upload-button" type="submit" value="Upload Image">
+                        </div>
+                    </form> 
+                </div>
+            </section>
+        </main>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js" integrity="sha512-EZI2cBcGPnmR89wTgVnN3602Yyi7muWo8y1B3a8WmIv1J9tYG+udH4LvmYjLiGp37yHB7FfaPBo8ly178m9g4Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            var tl = gsap.timeline();
+            tl.from(".layer-3, .layer-4", {
+                y: 200,
+                opacity: 0,
+                stagger: -0.25,
+                duration: 0.3
+            });
+            tl.from(".layer-2, .layer-1", {
+                y: -200,
+                opacity: 0,
+                stagger: 0.25,
+                duration: 0.3
+            });
+            tl.from(".next-img", {
+                x: 1000,
+                opacity: 0,
+                duration: 0.3,
+            }, "1");
+            tl.from(".calories", {
+                y: 100,
+                opacity: 0,
+                stagger: 0.2
+            });
+            var tl2 = gsap.timeline();
+            tl2.from(".badge, h1 span", {
+                y: 100,
+                opacity: 0,
+                stagger: 0.1
+            });
+            tl2.from(".ingredients .icons > *", {
+                x: -100,
+                opacity: 0,
+                stagger: 0.1
+            });
+
+            function storeFormDataAndRedirect() {
+                const imageUpload = document.getElementById('imageUpload').files[0];
+                const weightFood = document.getElementById('weightFood').value;
+
+                if (imageUpload) {
+                    const reader = new FileReader();
+                    reader.onloadend = function() {
+                        sessionStorage.setItem('imageUpload', reader.result);
+                        sessionStorage.setItem('weightFood', weightFood);
+                        window.location.href = '/loading';
+                    };
+                    reader.readAsDataURL(imageUpload);
+                }
+
+                return false; // Prevent form submission
+            }
+        </script>
+    </div>
+    <footer class="footer" id="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="static/logo.jpeg" alt="NutriDex Logo">
+            </div>
+            <div class="footer-links">
+                <a href="#nav">About Us</a>
+                <a href="#sec2">Scan</a>
+                <a href="calorie_log.html">Calorie Log</a>
+                <a href="unlocked.html">Unlocked</a>
+                <a href="diet_rec.html">Diet Plan</a>
+            </div>
+        </div>
+        <div class="footer-contact">
+            <p>Email: info@nutridex.com</p>
+            <p>Phone: +1 234 567 890</p>
+        </div>
+    </footer>
+</body>
+</html>

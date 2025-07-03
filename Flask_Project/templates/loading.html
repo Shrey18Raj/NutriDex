@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='logo.jpeg') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriDex - Loading</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='loadingstyle.css') }}">
+</head>
+<body>
+    <div class="loader" id="loader">
+        <div class="mr-freeze"></div>
+        <div class="mr-freeze"></div>
+        <div class="mr-freeze"></div>
+        <div class="mr-freeze"></div>
+        <div class="mr-freeze"></div>
+        <div class="mr-freeze"></div>
+    </div>
+    <div id="loading-text">
+        <h2>Loading<div class="loader-dots"></div></h2>
+    </div>
+    <div class="output-container" id="output-container" style="display:none;"></div>
+    <script>
+        window.onload = function() {
+            var imageUpload = sessionStorage.getItem('imageUpload');
+            var weightFood = sessionStorage.getItem('weightFood');
+
+            fetch('{{ url_for("process_upload") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    imageUpload: imageUpload,
+                    weightFood: weightFood
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.body.innerHTML = '<h2>There was an error processing your request. Please try again.</h2>';
+                } else {
+                    var outputContainer = document.getElementById('output-container');
+                    var loader = document.getElementById('loader');
+                    var loadingText = document.getElementById('loading-text');
+                    loader.style.display = 'none';
+                    loadingText.style.display = 'none';
+                    outputContainer.style.display = 'block';
+                    var outputHTML = `
+                        <h2>Loading Completed</h2>
+                        <img src="${data.image}" alt="Processed Image" class="output-image">
+                        <pre>${data.output}</pre>
+                    `;
+                    outputContainer.innerHTML = outputHTML;
+                    history.pushState({}, null, '/output');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.body.innerHTML = '<h2>There was an error processing your request. Please try again.</h2>';
+            });
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+@import url("https://fonts.googleapis.com/css2?family=Lilita+One&family=Poppins:wght@400;500;600;700;800;900&display=swap");
+
+* {
+    scroll-behavior: smooth;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root{
+  --main-color: #ffc535;
+  --second-col:#00aa4f;
+}
+html::-webkit-scrollbar {
+    width: 0.6rem;
+}
+html::-webkit-scrollbar-track {
+    background-color: rgb(209, 224, 203);
+}
+html::-webkit-scrollbar-thumb {
+    background:  rgb(63, 141, 34);
+}
+
+body {
+    display: grid;
+    font-family: "Lilita One", sans-serif;
+    overflow-x: hidden;
+    & main {
+        position: relative;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+nav {
+    margin:0;
+    width: 100%;
+    height:15vh;
+    box-shadow: 1px 1px 5px rgba(128, 128, 128, 0.274);
+    display: flex;
+    align-items: center;
+    padding: 10px 20px 0;
+    gap:70px;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+nav .logo {
+    margin-right: 20px;
+}
+
+nav .logo img {
+    width: 170px;
+    height:auto;
+}
+
+.curve-btn {
+    left: 22vw;
+    padding: 10px 20px;
+    border-radius: 30%/10%;
+    position: relative;
+}
+
+.curve-btn::after {
+    content: "";
+    position: absolute;
+    top: 10%;
+    bottom: 10%;
+    right: -5%;
+    left: -5%;
+    background: inherit;
+    border-radius: 5% / 50%;
+    z-index: -1;
+}
+
+nav .menu {
+    background: #00aa4f;
+    padding-right: 50px;
+    color: #fff;
+    margin-left:auto;
+    margin-right: auto;
+    position: relative;
+}
+
+nav .menu span {
+    position: absolute;
+    height: 95%;
+    top: 0;
+    width: 30px;
+    left: 70px;
+    background: #00883e;
+    border-radius: 30%/10%;
+    display: grid;
+    place-content: center;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+nav .menu span::after {
+    content: "";
+    position: absolute;
+    top: 10%;
+    bottom: 10%;
+    right: -5%;
+    left: -5%;
+    background: inherit;
+    border-radius: 5% / 50%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    z-index: -1;
+}
+
+nav .select {
+    background: #fff;
+}
+
+
+.unlocked-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.unlocked-header h2 {
+    font-size: 2.5em;
+    color: #ef420e;
+}
+
+.unlocked-header p {
+    font-size: 1.2em;
+    color: var(--second-col);
+}
+
+.food-grid {
+    padding:20px 40px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(200px, 1fr));
+    gap: 25px;
+}
+
+.food-item {
+    position: relative;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(1px, 1px, 10px, 0.9);
+}
+
+.food-item.unlocked {
+    background-color: var(--main-color);
+}
+
+.food-item.locked {
+    background-color: var(--main-color);
+}
+
+.food-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px 8px 0 0;
+    background-color: #fff535e2;
+}
+
+.food-info {
+    padding: 10px 0;
+}
+
+.food-info h3 {
+    margin: 0;
+    color: #333;
+}
+
+.food-info p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.locked-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.331);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 1.5em;
+    border-radius: 8px;
+    & span{
+        content: url('lock.png');
+        width:100px;
+    }
+}
+
+footer {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    color: #399918;
+    padding: 10px 0 5px;
+    text-align: center;
+    box-shadow: 1px 1px 5px rgba(128, 128, 128, 0.66);
+    margin-top: 30px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-logo img {margin-right: 50px;
+    max-width: 170px;
+}
+
+.footer-links,
+.footer-contact {
+    margin: 10px 0;
+}
+
+.footer-links a {
+    color: #399918;
+    margin: 0 10px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover{
+    color: #c4b72e;
+}
+
+.footer-contact p {
+    margin: 5px 0 0px;
+}

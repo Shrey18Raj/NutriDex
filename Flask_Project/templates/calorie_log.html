@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Log</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='calorie_log.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Additional styles if needed */
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Calorie Log</h1>
+        <p class="text-center">Track your daily calorie intake</p>
+        <hr>
+
+        <!-- Date Picker for Filtering -->
+        <div class="text-center mb-4">
+            <input type="date" id="filterDate" class="form-control" style="max-width: 300px; margin: 0 auto;">
+            <button class="btn btn-primary mt-2" onclick="filterByDate()">Filter</button>
+        </div>
+
+        <!-- Table to Display Calorie Data -->
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Date</th>
+                        <th>Total Calories</th>
+                    </tr>
+                </thead>
+                <tbody id="calorieData">
+                    {% if calorie_data %}
+                        {% for entry in calorie_data %}
+                            <tr>
+                                <td>{{ entry[1] }}</td>
+                                <td>{{ entry[2] }} cal</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="2" class="text-center">No data available</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="/" class="btn btn-primary">Go Back to Home</a>
+        </div>
+
+        <!-- Line Graph Section -->
+        <h3 class="text-center mt-5">Calorie Intake Over Time</h3>
+        <div style="height: 400px;">
+            <canvas id="calorieChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function filterByDate() {
+            const selectedDate = $('#filterDate').val();
+            $.ajax({
+                url: "/filter_calorie_log",
+                method: "GET",
+                data: { date: selectedDate },
+                success: function(response) {
+                    $('#calorieData').html(response);
+                },
+                error: function() {
+                    alert("An error occurred while filtering data.");
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            $.ajax({
+                url: "/fetch_calorie_data",
+                method: "GET",
+                success: function(data) {
+                    const dates = data.dates.map(date => {
+                        return new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                    });
+                    const calories = data.calories;
+        
+                    const ctx = document.getElementById('calorieChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: dates,
+                            datasets: [{
+                                label: 'Calories',
+                                data: calories,
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 2,
+                                fill: false
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Calories'
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Date'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                },
+                error: function() {
+                    alert("An error occurred while fetching calorie data.");
+                }
+            });
+        });
+        
+    </script>
+</body>
+</html>

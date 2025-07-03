@@ -1,0 +1,7 @@
+Flask
+tensorflow
+opencv-python
+numpy
+pandas
+matplotlib
+mysql-connector-python

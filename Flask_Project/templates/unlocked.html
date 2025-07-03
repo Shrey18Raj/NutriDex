@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='logo.jpeg') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriDex - Unlocked Foods</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='lockedstyle.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.0.1/remixicon.min.css" integrity="sha512-dTsohxprpcruDm4sjU92K0/Gf1nTKVVskNHLOGMqxmokBSkfOAyCzYSB6+5Z9UlDafFRpy5xLhvpkOImeFbX6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <main>
+        <nav id="nav">
+            <a href="{{ url_for('home') }}#sec1" class="logo">
+                <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="logo">
+            </a>
+            <a href="{{ url_for('home') }}#sec2">SCAN</a>
+            <a href="#footer">CONTACT US</a>
+            <a href="{{ url_for('home') }}" class="menu curve-btn">
+                HOME <span><i class="ri-book-open-line"></i></span>
+            </a>
+        </nav>
+        <section class="unlocked-header">
+            <h2>Unlocked Foods</h2>
+            <p>Here are all the food items you've unlocked!</p>
+        </section>
+        <section class="food-grid">
+            {% for food_label, unlocked in food_items %}
+                <div class="food-item" data-status="{{ '1' if unlocked else '0' }}">
+                    <img src="{{ url_for('static', filename=food_label | replace(' ', '_') ~ '.jpeg') }}" alt="{{ food_label }}">
+                    <div class="food-info">
+                        <h3>{{ food_label }}</h3>
+                    </div>
+                    {% if not unlocked %}
+                        <div class="locked-overlay">
+                            <span></span>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </section>
+    </main>
+    <footer class="footer" id="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="Nutridex Logo">
+            </div>
+            <div class="footer-links">
+                <a href="#nav">About Us</a>
+                <a href="#sec2">Scan</a>
+            </div>
+        </div>
+        <div class="footer-contact">
+            <p>Email: info@nutridex.com</p>
+            <p>&copy; 2024 Nutridex. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const foodItems = document.querySelectorAll('.food-item');
+            
+            foodItems.forEach(item => {
+                const status = item.getAttribute('data-status');
+                if (status === '1') {
+                    item.classList.add('unlocked');
+                    const overlay = item.querySelector('.locked-overlay');
+                    if (overlay) {
+                        overlay.remove();
+                    }
+                } else if (status === '0') {
+                    item.classList.add('locked');
+                    if (!item.querySelector('.locked-overlay')) {
+                        const overlayDiv = document.createElement('div');
+                        overlayDiv.classList.add('locked-overlay');
+                        const span = document.createElement('span');
+                        overlayDiv.appendChild(span);
+                        item.appendChild(overlayDiv);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
